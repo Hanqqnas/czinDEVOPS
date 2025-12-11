@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  namespace: czindevops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: flask-web
+        image: hanqqnas/czindevops:web
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DB_HOST
+          value: mysql-service
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_USER
+          value: appuser
+        - name: DB_PASSWORD
+          value: apppassword
+        - name: DB_NAME
+          value: mydb
+
